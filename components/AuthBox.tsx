@@ -1,22 +1,19 @@
 'use client'
 
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Logo from '../public/logo.png'
 import { FcGoogle } from "react-icons/fc";
-import { useStore } from '@/app/store';
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '@/lib/firebase';
 import { AddUserToFirestore, getUserByFirebaseId } from '@/lib/utils';
-import { truncate } from 'fs/promises';
 
   
 
 const AuthBox = () => {
     const router = useRouter();
-    const {user,isAuthenticated} = useStore()
     const [isSignUp, setIsSignUp] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
