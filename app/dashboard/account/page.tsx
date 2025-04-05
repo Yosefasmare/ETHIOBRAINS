@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FiUser, FiCreditCard, FiCheckCircle, FiX, FiRefreshCw } from 'react-icons/fi';
+import { FiUser, FiCreditCard, FiCheckCircle,  FiRefreshCw } from 'react-icons/fi';
 import { useStore } from '@/app/store';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
@@ -15,28 +15,30 @@ const AccountPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+
+    const fetchUserData = async () => {
+      if (!userFirestoreID) return;
+  
+      try {
+        setIsLoading(true);
+        const userDocRef = doc(db, "users", userFirestoreID);
+        const userDoc = await getDoc(userDocRef);
+  
+        if (userDoc.exists()) {
+         setIsLoading(false)
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        toast.error('Failed to load user data');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     fetchUserData();
   }, [userFirestoreID]);
 
-  const fetchUserData = async () => {
-    if (!userFirestoreID) return;
-
-    try {
-      setIsLoading(true);
-      const userDocRef = doc(db, "users", userFirestoreID);
-      const userDoc = await getDoc(userDocRef);
-
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
-        // Handle any additional user data if needed
-      }
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-      toast.error('Failed to load user data');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+ 
 
   const getPlanFeatures = () => {
     switch (user?.plan) {

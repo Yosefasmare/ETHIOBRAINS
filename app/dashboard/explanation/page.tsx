@@ -2,13 +2,12 @@
 
 import { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiUpload, FiFileText, FiVideo, FiImage, FiX, FiCheckCircle, FiAlertCircle, FiLoader, FiTrash2, FiCopy, FiDownload, FiMessageSquare } from 'react-icons/fi';
-import { doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
+import { FiUpload, FiFileText,  FiX, FiAlertCircle, FiLoader,   FiCopy, FiDownload, FiMessageSquare } from 'react-icons/fi';
+import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { toast } from 'react-hot-toast';
 import { useStore } from '@/app/store';
 import { extractDataFromExcel, extractTextFromDOCX, extractTextFromPDF } from '@/lib/utils';
-import ReactMarkdown from 'react-markdown';
 import ChatInterface from '@/components/ChatInterface';
 
 interface UploadFile {
@@ -38,13 +37,10 @@ const ExplanationPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [topic, setTopic] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const explanationRef = useRef<HTMLDivElement>(null);
   const { user, userFirestoreID } = useStore();
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
   const [extractedText, setExtractedText] = useState<string>('');
-  const [extractionLoading, setExtractionLoading] = useState(false);
   const [showChat, setShowChat] = useState(false);
-  const [chatButtonPosition, setChatButtonPosition] = useState({ x: 0, y: 0 });
 
   const validateFile = (file: File): string | undefined => {
     if (!file) {

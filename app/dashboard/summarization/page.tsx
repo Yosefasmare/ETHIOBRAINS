@@ -2,14 +2,13 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiUpload, FiFileText, FiVideo, FiImage, FiX, FiCheckCircle, FiAlertCircle, FiLoader, FiTrash2, FiCopy, FiDownload } from 'react-icons/fi';
-import { doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
+import { FiUpload,  FiX,FiAlertCircle, FiLoader,  FiCopy, FiDownload } from 'react-icons/fi';
+import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { toast } from 'react-hot-toast';
 import { useStore } from '@/app/store';
 import { extractDataFromExcel, extractTextFromDOCX, extractTextFromPDF } from '@/lib/utils';
 import AnimateDiv from '@/components/AnimateDiv';
-import ReactMarkdown from 'react-markdown';
 
 interface UploadFile {
   id: string;

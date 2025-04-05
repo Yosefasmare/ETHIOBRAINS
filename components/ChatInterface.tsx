@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -49,14 +49,23 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ fileContent }) => {
         }),
       });
 
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `Server error: ${response.status}`);
+      }
+
       const data = await response.json();
+      if (!data.response) {
+        throw new Error('No response received from the server');
+      }
+
       setMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
     } catch (error) {
-      console.error('Error:', error);
-      setMessages(prev => [
-        ...prev,
-        { role: 'assistant', content: 'Sorry, I encountered an error. Please try again.' },
-      ]);
+      console.error('Chat error:', error);
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: 'Sorry, I encountered an error while processing your request. Please try again later.' 
+      }]);
     } finally {
       setIsLoading(false);
     }
@@ -82,7 +91,9 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ fileContent }) => {
                 }`}
               >
                 {message.role === 'assistant' ? (
-                  <ReactMarkdown>{message.content}</ReactMarkdown>
+                  <ReactMarkdown >
+                    {message.content}
+                  </ReactMarkdown>
                 ) : (
                   message.content
                 )}
@@ -90,7 +101,6 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ fileContent }) => {
             </motion.div>
           ))}
         </AnimatePresence>
-
         {isLoading && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -112,7 +122,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ fileContent }) => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask a question about the document..."
-            className="flex-1 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white"
+            className="flex-1 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white"
           />
           <button
             type="submit"
@@ -127,4 +137,4 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ fileContent }) => {
   );
 };
 
-export default ChatInterface;
+export default ChatInterface; 

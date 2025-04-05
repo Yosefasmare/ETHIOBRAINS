@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { FiStar } from 'react-icons/fi';
 
 interface TestimonyProps {
@@ -20,7 +21,7 @@ const Testimony = ({ name, role, content, rating, image }: TestimonyProps) => {
       className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg"
     >
       <div className="flex items-center gap-4 mb-4">
-        <img
+        <Image
           src={image}
           alt={name}
           className="w-12 h-12 rounded-full object-cover"

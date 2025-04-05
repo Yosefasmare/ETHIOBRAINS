@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { IconType } from 'react-icons';
-import { FiHome, FiUpload, FiBook, FiPieChart, FiSettings, FiFrown, FiLogOut } from 'react-icons/fi';
+import { FiHome, FiBook,  FiSettings, FiFrown, FiLogOut } from 'react-icons/fi';
 import { AiFillSun } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa";
 import { RiAtLine, RiFlashlightLine, RiQuestionLine } from 'react-icons/ri';

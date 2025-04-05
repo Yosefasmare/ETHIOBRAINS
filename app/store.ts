@@ -1,14 +1,6 @@
 import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
 
-interface FileUpload {
-  id:string; // Unique identifier for the file
-  name: string  // File name
-  size: number; // File size in bytes
-  url: string ;  
-  uploadedAt: Date;  
-}
-
+ 
 interface User {
   id: string;
   name: string;
@@ -26,10 +18,7 @@ interface User {
 
 
 
-interface StoreTheme {
-    theme: "light" | "dark";
-    toggleTheme: () => void;
-  }
+ 
 
 // ✅ Define Store Type
 interface StoreState {

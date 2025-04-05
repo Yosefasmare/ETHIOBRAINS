@@ -9,11 +9,6 @@ import { useTheme } from '@/context/ThemeContext';
 import { auth } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
 
-interface UserProfile {
-  name: string;
-  email: string;
-  profilePicture: string | null;
-}
 
 const SettingsPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'profile' | 'security'>('profile');

@@ -1,11 +1,10 @@
-import { FiUpload, FiBook, FiHelpCircle, FiCheck, FiStar, FiArrowRight, FiBookOpen, FiTarget, FiMessageSquare, FiUsers, FiSun, FiMoon } from 'react-icons/fi';
+import { FiUpload, FiBook, FiHelpCircle, FiCheck, FiArrowRight, FiBookOpen, FiTarget, FiMessageSquare, FiUsers } from 'react-icons/fi';
 import Image from 'next/image';
 import Page from '../public/page.png'
 import AnimateDiv from '@/components/AnimateDiv';
 import ThemeToggleBtn from '@/components/ThemeToggleBtn';
 import Testimony from '@/components/Testimony';
 import Link from 'next/link';
-import { div } from 'framer-motion/client';
 
 const features = [
   {
@@ -268,7 +267,13 @@ const LandingPage: React.FC = () => {
       </footer>
 
       {/* Theme Toggle Button */}
-     <ThemeToggleBtn />
+      <div className="fixed bottom-8 right-8 z-50">
+        <div className="bg-white dark:bg-gray-800 backdrop-blur-lg rounded-full p-3 shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.5)] border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform duration-200">
+          <div className="bg-gradient-to-r from-green-500 to-yellow-500 rounded-full p-1">
+            <ThemeToggleBtn />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

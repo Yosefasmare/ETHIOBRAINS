@@ -1,9 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion  } from 'framer-motion';
 import { FiCheck, FiX, FiZap, FiStar, FiAward, FiArrowRight } from 'react-icons/fi';
-import axios from 'axios';
 import { useStore } from '../../store';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';

@@ -12,7 +12,7 @@ const SubscriptionRequierd = ({children}: {children: React.ReactNode}) => {
     switch (user?.plan) {
       case 'basic':
         return {
-          title: 'Upgrade to Premium',
+          title: 'Upgrade to pro or premium',
           message: 'Your current Basic plan has limited features. Upgrade to Premium to unlock:',
           features: [
             'Unlimited flashcards generation',
@@ -20,7 +20,7 @@ const SubscriptionRequierd = ({children}: {children: React.ReactNode}) => {
             'Priority support',
             'Custom study plans'
           ],
-          buttonText: 'Upgrade to Premium',
+          buttonText: 'Upgrade to pro',
           buttonLink: '/dashboard/plans'
         };
       case 'pro':

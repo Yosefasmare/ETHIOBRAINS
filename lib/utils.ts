@@ -1,7 +1,5 @@
-import { collection, addDoc, query, where, getDocs, doc, updateDoc, arrayRemove, getDoc } from "firebase/firestore"; 
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore"; 
 import { db } from "./firebase";
-import { useStore } from "@/app/store";
-import { Permission, Role } from "appwrite";
 import { getDocument, GlobalWorkerOptions } from "pdfjs-dist";
 import mammoth from "mammoth";
 import * as XLSX from "xlsx";
@@ -34,7 +32,6 @@ export const getUserByFirebaseId = async (firebaseId: string) => {
 
     const querySnapshot = await getDocs(q);
     if(!querySnapshot.empty){
-        const data = querySnapshot
         return querySnapshot
 
     }else{
