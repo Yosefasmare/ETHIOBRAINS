@@ -1,10 +1,14 @@
-import { FiUpload, FiBook, FiHelpCircle, FiCheck, FiArrowRight, FiBookOpen, FiTarget, FiMessageSquare, FiUsers } from 'react-icons/fi';
+'use client';
+
+import { FiUpload, FiBook, FiCheck, FiArrowRight, FiBookOpen, FiTarget, FiMessageSquare,   } from 'react-icons/fi';
 import Image from 'next/image';
 import Page from '../public/page.png'
 import AnimateDiv from '@/components/AnimateDiv';
 import ThemeToggleBtn from '@/components/ThemeToggleBtn';
 import Testimony from '@/components/Testimony';
 import Link from 'next/link';
+import ContactPopup from '@/components/ContactPopup';
+import { useState } from 'react';
 
 const features = [
   {
@@ -52,10 +56,25 @@ const testimony: never[] = [
 ]
 
 const LandingPage: React.FC = () => {
- 
+  const [isContactPopupOpen, setIsContactPopupOpen] = useState(false);
 
   return (
     <div className={`min-h-screen`}>
+      {/* Contact Popup */}
+      <ContactPopup 
+        isOpen={isContactPopupOpen} 
+        onClose={() => setIsContactPopupOpen(false)} 
+      />
+
+      {/* Fixed Theme Toggle Button */}
+      <div className="fixed bottom-8 right-8 z-50">
+        <div className="bg-white dark:bg-gray-800 backdrop-blur-lg rounded-full p-3 shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.5)] border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform duration-200">
+          <div className="bg-gradient-to-r from-green-500 to-yellow-500 rounded-full p-1">
+            <ThemeToggleBtn />
+          </div>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-green-50 to-yellow-50 dark:from-gray-900 dark:to-gray-800">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
@@ -198,6 +217,22 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Contact Section */}
+      <section className="py-20 bg-white dark:bg-gray-800">
+        <div className="container mx-auto px-4 max-w-4xl text-center">
+          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Get in Touch</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
+            Have questions? We'd love to hear from you.
+          </p>
+          <button
+            onClick={() => setIsContactPopupOpen(true)}
+            className="inline-block px-8 py-4 bg-gradient-to-r from-green-500 to-yellow-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all transform hover:-translate-y-1"
+          >
+            Connect With Us
+          </button>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-white dark:bg-gray-900 py-12">
         <div className="container mx-auto px-4">
@@ -212,52 +247,32 @@ const LandingPage: React.FC = () => {
               <h4 className="font-semibold mb-4 dark:text-white">Quick Links</h4>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-green-500">
+                  <Link href={'/about'} className="text-gray-600 dark:text-gray-400 hover:text-green-500">
                     About Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-green-500">
+                  <a href="#features" className="text-gray-600 dark:text-gray-400 hover:text-green-500">
                     Features
                   </a>
                 </li>
-                <li>
-                  <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-green-500">
-                    Contact
-                  </a>
-                </li>
+                
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4 dark:text-white">Support</h4>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-green-500">
-                    FAQ
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-green-500">
+                  <Link href={'/privacy'} className="text-gray-600 dark:text-gray-400 hover:text-green-500">
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-green-500">
+                  <Link href={'/terms'} className="text-gray-600 dark:text-gray-400 hover:text-green-500">
                     Terms of Service
-                  </a>
+                  </Link>
                 </li>
               </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4 dark:text-white">Connect</h4>
-              <div className="flex gap-4">
-                <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-green-500">
-                  <FiUsers className="w-6 h-6" />
-                </a>
-                <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-green-500">
-                  <FiHelpCircle className="w-6 h-6" />
-                </a>
-              </div>
             </div>
           </div>
           <div className="border-t border-gray-200 dark:border-gray-800 mt-8 pt-8 text-center text-gray-600 dark:text-gray-400">
@@ -265,15 +280,6 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </footer>
-
-      {/* Theme Toggle Button */}
-      <div className="fixed bottom-8 right-8 z-50">
-        <div className="bg-white dark:bg-gray-800 backdrop-blur-lg rounded-full p-3 shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.5)] border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform duration-200">
-          <div className="bg-gradient-to-r from-green-500 to-yellow-500 rounded-full p-1">
-            <ThemeToggleBtn />
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
