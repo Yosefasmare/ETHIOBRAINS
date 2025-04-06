@@ -351,7 +351,7 @@ const QuizzesPage: React.FC = () => {
           {/* Left Column - Upload Zone */}
           <div className="lg:w-1/2">
             <div
-              className={`relative border-2 border-dashed rounded-2xl p-8 transition-all duration-300 ease-in-out text-center h-[calc(100vh-32rem)]
+              className={`relative border-2 border-dashed rounded-2xl p-8 transition-all duration-300 ease-in-out text-center h-[310px]
                 ${isDragging
                   ? 'border-blue-500 bg-blue-500/10'
                   : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 bg-white dark:bg-gray-800/50'
@@ -397,7 +397,7 @@ const QuizzesPage: React.FC = () => {
 
           {/* Right Column - File List */}
           <div className="lg:w-1/2">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6 h-[calc(100vh-32rem)]">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6 h-[310px]">
               <h2 className="text-xl font-semibold mb-4 dark:text-gray-200">Selected Files</h2>
               <div className="space-y-6 h-[calc(100%-4rem)] overflow-y-auto">
                 <AnimatePresence>
