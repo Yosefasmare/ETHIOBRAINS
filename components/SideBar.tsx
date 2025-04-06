@@ -47,7 +47,7 @@ const SideBar = () => {
     try {
       await signOut(auth);
       setUser(null);
-      router.push('/');
+      router.push('/auth');
     } catch (error) {
       console.error('Error signing out:', error);
     }
