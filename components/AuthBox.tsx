@@ -110,7 +110,7 @@ const AuthBox = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`w-full max-w-md ${isSignUp ? 'md:h-[95%]' : 'md:h-[90%]'} transition-all ease-in-out  p-8 space-y-8 md:border border-gray-900 dark:border-gray-100   dark:bg-gray-900 rounded-2xl shadow-lg `}
+        className={`w-full max-w-md h-auto  transition-all ease-in-out  p-8 space-y-8 md:border border-gray-900 dark:border-gray-100   dark:bg-gray-900 rounded-2xl shadow-lg `}
       >
         <div className="text-center">
           <motion.div
