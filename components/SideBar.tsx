@@ -70,6 +70,7 @@ const SideBar = () => {
 
   return (
     <>
+      <main className="md:w-[300px] hidden md:block h-full fixed z-20  bottom-0 left-0 right-0 h-full p-4" />
       {/* Mobile Hamburger Button */}
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
