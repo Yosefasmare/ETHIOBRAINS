@@ -2,8 +2,9 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiSend, FiLoader } from 'react-icons/fi';
+import { FiSend, FiLoader, FiAlertCircle } from 'react-icons/fi';
 import ReactMarkdown from 'react-markdown';
+import { toast } from 'react-hot-toast';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -18,6 +19,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ fileContent }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -36,6 +38,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ fileContent }) => {
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
+    setError(null);
 
     try {
       const response = await fetch('/api/chat', {
@@ -49,22 +52,28 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ fileContent }) => {
         }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `Server error: ${response.status}`);
+        const errorMessage = data.details || data.error || 'Failed to get response from server';
+        throw new Error(errorMessage);
       }
 
-      const data = await response.json();
       if (!data.response) {
         throw new Error('No response received from the server');
       }
 
       setMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Chat error:', error);
+      const errorMessage = error.message || 'An error occurred while processing your request';
+      setError(errorMessage);
+      toast.error(errorMessage);
+      
+      // Add error message to chat
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: 'Sorry, I encountered an error while processing your request. Please try again later.' 
+        content: `I apologize, but I encountered an error: ${errorMessage}. Please try again later or check if the API key is properly configured.` 
       }]);
     } finally {
       setIsLoading(false);
@@ -91,7 +100,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ fileContent }) => {
                 }`}
               >
                 {message.role === 'assistant' ? (
-                  <ReactMarkdown >
+                  <ReactMarkdown>
                     {message.content}
                   </ReactMarkdown>
                 ) : (
@@ -107,8 +116,21 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ fileContent }) => {
             animate={{ opacity: 1, y: 0 }}
             className="flex justify-start"
           >
-            <div className="bg-gray-100 dark:bg-gray-700 rounded-2xl p-4">
+            <div className="bg-gray-100 dark:bg-gray-700 rounded-2xl p-4 flex items-center gap-2">
               <FiLoader className="w-5 h-5 animate-spin text-gray-500 dark:text-gray-400" />
+              <span className="text-gray-500 dark:text-gray-400">Thinking...</span>
+            </div>
+          </motion.div>
+        )}
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex justify-start"
+          >
+            <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 rounded-2xl p-4 flex items-center gap-2">
+              <FiAlertCircle className="w-5 h-5" />
+              <span>{error}</span>
             </div>
           </motion.div>
         )}
@@ -123,6 +145,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ fileContent }) => {
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask a question about the document..."
             className="flex-1 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white"
+            disabled={isLoading}
           />
           <button
             type="submit"
