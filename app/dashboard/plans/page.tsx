@@ -249,14 +249,17 @@ const PlansPage: React.FC = () => {
                 </button>
               ) : (
                 <button
+                  disabled={loading}
                   onClick={() => handlePayment(isYearly ? plan.price.yearly : plan.price.monthly,plan.name)}
-                  className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 ${
+                  className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2
+                  ${loading && 'cursor-not-allowed '}
+                  ${
                     plan.isPopular
                       ? 'bg-purple-500 hover:bg-purple-600 text-white'
                       : 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200'
                   }`}
                 >
-                  Get Started
+                  {loading ? 'loading...':'Get Started'}
                   <FiArrowRight className="w-5 h-5" />
                 </button>
               )}
