@@ -94,9 +94,9 @@ const LandingPage: React.FC = () => {
                 <Link href={'/dashboard'} className="px-8 py-4 bg-gradient-to-r from-green-500 to-yellow-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all transform hover:-translate-y-1">
                   Get Started Free
                 </Link>
-                <button className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-lg font-semibold hover:shadow-lg transition-all transform hover:-translate-y-1">
+                <Link href='/about' className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-lg font-semibold hover:shadow-lg transition-all transform hover:-translate-y-1">
                   Learn More
-                </button>
+                </Link>
               </div>
             </AnimateDiv>
             <AnimateDiv
