@@ -86,47 +86,46 @@ const PlansPage: React.FC = () => {
     setIsYearly(!isYearly);
   }
     
-  const handlePayment = async (amount: number , name: string) => {
-    setLoading(true);
-    try {
-      const response = await fetch("/api/chapa", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount,
-          currency: "ETB",
-          email: user?.email || "test@example.com",
-          first_name: user?.name?.split(" ")[0] || "John",
-          last_name: user?.name?.split(" ")[1] || "Doe",
-          tx_ref: "txn_" + Date.now(),
-          callback_url: "http://localhost:3000/dashboard/settings", // ✅ Localhost callback
-        }),
-      });
-  
-      const data = await response.json();
-      
-      if (response.ok && data.data?.checkout_url) {
-        if(userFirestoreID ){
-          console.log('helloo payment')
-          const userDocRef = doc(db, "users", userFirestoreID);
-            await updateDoc(userDocRef, {
-              plan: name
-            });
-            
-        window.location.href = data.data.checkout_url;
-        }
+ const handlePayment = async (amount: number, name: string) => {
+  setLoading(true);
+  try {
+    const txRef = "txn_" + Date.now();
+    const response = await fetch("/api/chapa", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        amount,
+        currency: "ETB",
+        email: user?.email || "test@example.com",
+        first_name: user?.name?.split(" ")[0] || "John",
+        last_name: user?.name?.split(" ")[1] || "Doe",
+        tx_ref: txRef,
+        callback_url: process.env.NEXT_PUBLIC_CALLBACK_URL || "http://localhost:3000/dashboard/account",
+      }),
+    });
 
-      } else {
-        console.error("Payment error:", data.message);
+    const data = await response.json();
+
+    if (response.ok && data.data?.checkout_url) {
+      if (!userFirestoreID) {
+        console.error("Missing userFirestoreID");
+        return;
       }
-    } catch (error) {
-      console.error("Payment error:", error);
-    } 
 
-  
-     
+      const userDocRef = doc(db, "users", userFirestoreID);
+      await updateDoc(userDocRef, { plan: name });
+
+      window.location.href = data.data.checkout_url;
+    } else {
+      console.error("Payment error:", data.message);
+    }
+  } catch (error) {
+    console.error("Payment error:", error);
+  } finally {
     setLoading(false);
-  };
+  }
+};
+
   
 
   const isCurrentPlan = (planName: string) => {
