@@ -22,10 +22,17 @@ interface ChapaResponse {
 
 export async function POST(req: Request) {
   try {
+    if (!process.env.CHAPA_SECRET_KEY || !process.env.NEXT_PUBLIC_APP_URL) {
+      return NextResponse.json({ status: "error", message: "Server configuration error" }, { status: 500 });
+    }
+
     const body: ChapaRequestBody = await req.json();
 
-    if (!body.amount || !body.email || !body.first_name || !body.last_name || !body.tx_ref || !body.callback_url) {
-      return NextResponse.json({ status: "error", message: "Missing required fields" }, { status: 400 });
+    const requiredFields = ["amount", "email", "first_name", "last_name", "tx_ref", "callback_url"];
+    for (const field of requiredFields) {
+      if (!body[field as keyof ChapaRequestBody]) {
+        return NextResponse.json({ status: "error", message: `Missing required field: ${field}` }, { status: 400 });
+      }
     }
 
     const chapaResponse = await axios.post<ChapaResponse>(
@@ -36,6 +43,7 @@ export async function POST(req: Request) {
         email: body.email,
         first_name: body.first_name,
         last_name: body.last_name,
+        phone_number: body.phone_number || undefined,
         tx_ref: body.tx_ref,
         callback_url: body.callback_url,
         return_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/account`,
@@ -58,6 +66,12 @@ export async function POST(req: Request) {
     return NextResponse.json(chapaResponse.data);
   } catch (error: any) {
     console.error("Chapa API error:", error.response?.data || error.message);
-    return NextResponse.json({ status: "error", message: error.response?.data?.message || "Payment processing error" }, { status: 500 });
+    return NextResponse.json(
+      {
+        status: "error",
+        message: error.response?.data?.message || "Payment processing error",
+      },
+      { status: error.response?.status || 500 }
+    );
   }
 }
