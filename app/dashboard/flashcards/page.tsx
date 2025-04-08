@@ -51,10 +51,10 @@ const FlashcardsPage: React.FC = () => {
   const getMaxFlashcards = () => {
     switch (user?.plan) {
       case 'premium':
-        return 50; // Unlimited for premium
+        return 50; // 50 for premium
       case 'pro':
         return 10; // 10 for pro
-      default:
+      case 'basic:
         return 5; // 5 for basic
     }
   };
