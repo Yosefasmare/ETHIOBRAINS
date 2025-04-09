@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { IconType } from 'react-icons';
-import { FiHome, FiBook,  FiSettings, FiFrown, FiLogOut } from 'react-icons/fi';
+import { FiHome, FiBook,  FiSettings, FiFrown, FiLogOut, FiMessageSquare } from 'react-icons/fi';
 import { AiFillSun } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa";
 import { RiAtLine, RiFlashlightLine, RiQuestionLine } from 'react-icons/ri';
@@ -129,6 +129,7 @@ const SideBar = () => {
           <SidebarLink path='/dashboard/flashcards' icon={RiFlashlightLine} label="Flashcards" isCollapsed={isSidebarCollapsed} />
           <SidebarLink path='/dashboard/explanation' icon={FiBook} label="Explanation" isCollapsed={isSidebarCollapsed} />
           <SidebarLink path='/dashboard/quizzes' icon={RiQuestionLine} label="Quiz Generation" isCollapsed={isSidebarCollapsed} />
+          <SidebarLink path='/dashboard/chat' icon={FiMessageSquare} label="Study Buddy" isCollapsed={isSidebarCollapsed} />
         </div>
         
         {/* Footer - Show on both mobile and desktop */}
