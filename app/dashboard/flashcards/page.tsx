@@ -54,7 +54,7 @@ const FlashcardsPage: React.FC = () => {
         return 50; // 50 for premium
       case 'pro':
         return 10; // 10 for pro
-      case 'basic:
+      default:
         return 5; // 5 for basic
     }
   };
