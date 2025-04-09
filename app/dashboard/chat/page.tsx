@@ -8,6 +8,7 @@ import LoadingDots from '@/components/chat/LoadingDots';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiPlus, HiChatAlt2, HiTrash } from 'react-icons/hi';
 import { format } from 'date-fns';
+import { RiRobot2Fill } from "react-icons/ri";
 
 export default function ChatPage() {
   const {
@@ -165,7 +166,8 @@ export default function ChatPage() {
                   animate={{ opacity: 1 }}
                   className="flex items-center justify-center h-full"
                 >
-                  <div className="text-center">
+                  <div className="text-center flex flex-col justify-center items-center gap-2">
+                   <RiRobot2Fill className='text-7xl text-blue-500' />
                     <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
                       Start a New Conversation
                     </h2>
