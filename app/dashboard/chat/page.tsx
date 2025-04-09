@@ -176,7 +176,8 @@ export default function ChatPage() {
                 </motion.div>
               )}
             </div>
-            <ChatInput onSendMessage={handleSendMessage} isLoading={isSending} />
+            {currentChat &&  <ChatInput onSendMessage={handleSendMessage} isLoading={isSending} />}
+           
           </div>
         </motion.div>
       </div>
