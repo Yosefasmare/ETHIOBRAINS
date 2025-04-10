@@ -20,7 +20,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
             : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
         }`}
       >
-        <p className="whitespace-pre-wrap">{message.content}</p>
+        <p className="whitespace-pre-wrap" dangerouslySetInnerHTML={{__html:message.content}}/>   
         <p className="text-xs mt-2 opacity-70">
           {new Date(message.timestamp).toLocaleTimeString()}
         </p>

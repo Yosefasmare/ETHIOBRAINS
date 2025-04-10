@@ -63,6 +63,7 @@ export default function ChatPage() {
       if (aiResponse) {
         // Add AI response
         addMessage(aiResponse, 'assistant');
+        console.log(aiResponse)
       }
     } catch (error) {
       console.error('Error:', error);

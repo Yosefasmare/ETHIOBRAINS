@@ -41,29 +41,32 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ fileContent }) => {
     setError(null);
 
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          messages: [...messages, { role: 'user', content: userMessage }],
-          fileContent,
-        }),
-      });
+      if(fileContent !== ''){
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            messages: [...messages, { role: 'user', content: userMessage }],
+            fileContent: fileContent,
+          }),
+        });
+  
+        const data = await response.json();
+        if (!response.ok) {
+          const errorMessage = data.details || data.error || 'Failed to get response from server';
+          throw new Error(errorMessage);
+        }
+  
+        if (!data.response) {
+          throw new Error('No response received from the server');
+        }
+        setMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        const errorMessage = data.details || data.error || 'Failed to get response from server';
-        throw new Error(errorMessage);
       }
 
-      if (!data.response) {
-        throw new Error('No response received from the server');
-      }
 
-      setMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
     } catch (error: any) {
       console.error('Chat error:', error);
       const errorMessage = error.message || 'An error occurred while processing your request';
@@ -93,16 +96,14 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ fileContent }) => {
               className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[80%] rounded-2xl p-4 ${
+                className={`max-w-[80%] break-words rounded-2xl p-4 overflow-x-hidden ${
                   message.role === 'user'
                     ? 'bg-blue-500 text-white'
                     : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
                 }`}
               >
                 {message.role === 'assistant' ? (
-                  <ReactMarkdown>
-                    {message.content}
-                  </ReactMarkdown>
+                  <p dangerouslySetInnerHTML={{__html:message.content}}/>
                 ) : (
                   message.content
                 )}
