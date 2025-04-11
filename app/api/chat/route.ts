@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
       const formattedResponse = response
       .replace(/^"|"$/g, '') // Remove leading and trailing quotes
       .replace(/\\n/g, '\n')  // Convert \n into actual new lines
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // Convert **bold** to <strong>
+      .replace(/\*\*(.*?)\*\*/g, "<bold>$1</bold>") // Convert **bold** to <strong>
       .replace(/\*(.*?)\*/g, "<em>$1</em>"); // Convert *italic* to <em>
 
       return NextResponse.json({ response: formattedResponse });

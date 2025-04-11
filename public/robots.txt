@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Disallow protected or private routes
+Disallow: /dashboard
+Disallow: /api/
+
+Sitemap: https://ethiobrains.vercel.app/sitemap.xml
