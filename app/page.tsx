@@ -103,7 +103,7 @@ const LandingPage: React.FC = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               className="flex-1 relative"
             >
-              <div className="relative w-full h-[400px] lg:h-[500px]">
+              <div className="relative w-full h-[400px] bg-green-900 lg:h-[500px]">
                 <Image
                   src={Page}
                   alt="AI Learning Illustration"
