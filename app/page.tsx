@@ -76,7 +76,7 @@ const LandingPage: React.FC = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col lg:flex-row items-center justify-center overflow-hidden bg-gradient-to-br from-green-50 to-yellow-50 dark:from-gray-900 dark:to-gray-800">
+      <section className="relative min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-green-50 to-yellow-50 dark:from-gray-900 dark:to-gray-800">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="container mx-auto px-4 py-16 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-12">
@@ -101,14 +101,14 @@ const LandingPage: React.FC = () => {
             </AnimateDiv>
             <AnimateDiv
               initial={{ opacity: 0, scale: 0.8 }}
-              className="flex-1 relative"
+              className="flex-1 relative hidden md:flex"
             >
               <div className="relative w-full h-[400px] lg:h-[500px]">
                 <Image
                   src={Page}
                   alt="AI Learning Illustration"
                   fill
-                  className="object-contain w-full h-full"
+                  className="object-contain"
                   priority
                 />
               </div>
