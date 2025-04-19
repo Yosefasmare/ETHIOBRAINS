@@ -20,7 +20,7 @@ export default function RootLayout({
 
 
   return (
-    <html lang="en">
+    <html lang="en" className=" ">
       <body  className="bg-gray-100 dark:bg-gray-900">
         <ThemeProvider>
            {children}
