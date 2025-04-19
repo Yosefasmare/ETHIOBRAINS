@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: "Content-Security-Policy",
-            value: "default-src 'self'; script-src 'self'; object-src 'none'; frame-ancestors 'none';",
+            value: "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; frame-ancestors 'none';",
           },
           {
             key: "X-Frame-Options",
