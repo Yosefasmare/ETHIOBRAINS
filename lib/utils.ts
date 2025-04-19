@@ -18,7 +18,7 @@ interface UserData {
 
 export const AddUserToFirestore = async  ({userdata}:{userdata: UserData }) => {
     try {
-      await addDoc(collection(db, "users", userdata.authId), userdata);
+      await addDoc(collection(db, "users"), userdata);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
