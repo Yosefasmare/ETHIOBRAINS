@@ -64,7 +64,7 @@ const QuizzesPage: React.FC = () => {
 
   const handleNumQuestionsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
-    const maxQuestions = getMaxQuestions();
+    const maxQuestions = 15;
     if (!isNaN(value) && value > 0 && value <= maxQuestions) {
       setNumQuestions(value);
     }
