@@ -76,7 +76,7 @@ const AuthBox = () => {
                 name: authUser.user.displayName ?? 'Annonymess' , 
                 email: authUser.user!.email ?? "",
                 profilePicUrl: authUser.user?.photoURL ?? "",  
-                plan: "basic",
+                plan: "Premium",
                 fileUploads: null,  
                 createdAt: new Date(),
                 NoFileUploads: 0,
