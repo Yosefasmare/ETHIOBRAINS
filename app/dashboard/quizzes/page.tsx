@@ -58,7 +58,7 @@ const QuizzesPage: React.FC = () => {
       case 'pro':
         return 10; // 10 for pro
       default:
-        return 5; // 5 for basic
+        return 15; // 5 for basic
     }
   };
 
