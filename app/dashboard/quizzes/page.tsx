@@ -646,7 +646,8 @@ const QuizzesPage: React.FC = () => {
                     className="w-20 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   />
                   <span className="text-sm text-gray-500 dark:text-gray-400">
-                    Max: {getMaxQuestions()} ({user?.plan ? user.plan.charAt(0).toUpperCase() + user.plan.slice(1) : 'Basic'} Plan)
+                    Max: {getMaxQuestions()} 
+{/*                     Max: {getMaxQuestions()} ({user?.plan ? user.plan.charAt(0).toUpperCase() + user.plan.slice(1) : 'Basic'} Plan) */}
                   </span>
                 </div>
                 <div className="flex items-center gap-4">
