@@ -21,12 +21,11 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-        <head>
-     <script
-      async 
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5001931756716695"
-     crossorigin="anonymous"
-      ></script>
+         <head>
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-5001931756716695"
+        />
       </head>
       <body  className="bg-gray-100 dark:bg-gray-900">
         <ThemeProvider>
